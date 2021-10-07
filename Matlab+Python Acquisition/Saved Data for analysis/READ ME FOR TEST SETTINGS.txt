@@ -1,0 +1,17 @@
+Breathe out and breathe in every tick of 56 bpm according o metronome
+
+https://www.flutetunes.com/metronome/
+
+Conducted on 10-06-21 on Migul Mireles
+
+30 seconds analysis window,
+
+3.33 seconds overwritten every time
+
+30 second init point (1)
+
+30 cycles of running buffer (30)
+
+== 31 overall points
+
+.csv file is from Berry pulseox using OxyCare app +bluetooth on phone. 
