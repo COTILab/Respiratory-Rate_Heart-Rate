@@ -26,7 +26,12 @@ import dlib ## finding OTHER LANDMARKS
 
 # Finding ROI with openCV
 # https://www.datacamp.com/community/tutorials/face-detection-python-opencv
-img_raw=cv2.imread('C:/Users/rahul/OneDrive - Northeastern University/Respiratory Rate_Heart Rate/Matlab+Python Acquisition/Python Functions/IR.jpg')
+
+img_raw=cv2.imread('./IR.jpg')
+sf=1.2
+mn=5
+
+#img_raw=cv2.imread('./testimg.jpg')
 print(type(img_raw))
 print(img_raw.shape)
 im2=np.asarray(img_raw)
@@ -44,7 +49,7 @@ print(type(haar_cascade_face))
 #plt.imshow(img_raw)
 
 
-faces_rects = haar_cascade_face.detectMultiScale(test_image_gray, scaleFactor = 1.2, minNeighbors = 5);
+faces_rects = haar_cascade_face.detectMultiScale(test_image_gray, scaleFactor = sf, minNeighbors = mn);
 
 # Let us print the no. of faces found
 print('Faces found: ', len(faces_rects))
@@ -66,12 +71,20 @@ for (x,y,w,h) in faces_rects:
 		circles=cv2.circle(rectangle,(xx,yy),2,(0,255,0),-1)
 
 
-sf=1.2
+sf=1.4
 mn=5
-[faces_rect_list,landmark_list]=cam.get_ROI_FACE(img_raw,sf,mn)
+[predictor,haar_cascade_face]=cam.set_predictor_cascade()
+[faces_rect_list,landmark_list]=cam.get_ROI_FACE(img_raw,sf,mn,predictor,haar_cascade_face)
 #plt.imshow(rectangle)     
 #circles=cv2.circle(rectangle,(points[33][0],points[33][1]),2,(0,255,0),-1)
 print(landmark_list)
-plt.imshow(circles)
+#plt.imshow(circles)
 plt.show()
 
+
+dst = cv2.detailEnhance(img_raw, sigma_s=10, sigma_r=0.15)
+
+faces_rectsv2 = haar_cascade_face.detectMultiScale(dst, scaleFactor = sf, minNeighbors = mn);
+print('Faces found: ', len(faces_rectsv2))
+#plt.imshow(dst)
+#plt.show()

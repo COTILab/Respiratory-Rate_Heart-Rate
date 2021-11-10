@@ -12,6 +12,7 @@ from array import array
 from PIL import Image 
 import time
 import dlib
+import time
 #declaring globals
 global delay,num_frames
 
@@ -68,7 +69,7 @@ def set_int(var):
 	return int(var)
 
 def take_IR_imagevtwo(Data_Streams):
-	#print("FUCK YOU")
+	
 	#delay=0.06
 	num_frames_casted=set_int(num_frames)
 	print(type(num_frames_casted))
@@ -91,25 +92,55 @@ def take_IR_imagevtwo(Data_Streams):
 		toc[i]=time.time()-tic
 
 	return test_img_rs,toc  
+	## which libraries to use for detection
+
+def set_predictor_cascade():
+	predictor=dlib.shape_predictor("C:/Users/rahul/OneDrive - Northeastern University/Respiratory Rate_Heart Rate/Matlab+Python Acquisition/Python Functions/dlibdat/shape_predictor_68_face_landmarks/shape_predictor_68_face_landmarks.dat")
+	haar_cascade_face = cv2.CascadeClassifier('C:/Users/rahul/OneDrive - Northeastern University/Respiratory Rate_Heart Rate/Matlab+Python Acquisition/Python Functions/haarcascades/haarcascade_frontalface_default.xml')
+	return predictor,haar_cascade_face
+
+
 
 
 ## use open CV to get ROI fOR FACE
-def get_ROI_FACE(img,sf,mn):
-	print('DO WE EVEN GET HERE??????')
+def get_ROI_FACE(img,sf,mn,predictor,haar_cascade_face):
+	#print('DO WE EVEN GET HERE??????')
+	#start=time.process_time()
+
+	#print(time.process_time() - start)
+	#print('TIME START')
 	mn=int(mn)
 	img_arr=np.asarray(img)
-	predictor=dlib.shape_predictor("C:/Users/rahul/OneDrive - Northeastern University/Respiratory Rate_Heart Rate/Matlab+Python Acquisition/Python Functions/dlibdat/shape_predictor_68_face_landmarks/shape_predictor_68_face_landmarks.dat")
+	#print(type(img))
+	#print(type(img_arr))
+	#print(img_arr.shape)
+	#print(time.process_time() - start)
+	#predictor=dlib.shape_predictor("C:/Users/rahul/OneDrive - Northeastern University/Respiratory Rate_Heart Rate/Matlab+Python Acquisition/Python Functions/dlibdat/shape_predictor_68_face_landmarks/shape_predictor_68_face_landmarks.dat")
+	#print(time.process_time() - start)
 	#im = Image.fromarray(img_arr)
-	print (type(img))
+	#print (type(img))
 	#print (type(img_arr))
 	#print(img_arr.shape)
-	img_raw=cv2.cvtColor(img_arr, cv2.COLOR_BGR2GRAY)
-	haar_cascade_face = cv2.CascadeClassifier('C:/Users/rahul/OneDrive - Northeastern University/Respiratory Rate_Heart Rate/Matlab+Python Acquisition/Python Functions/haarcascades/haarcascade_frontalface_default.xml')
+	img_raw=img_arr   #cv2.cvtColor(img_arr, cv2.COLOR_BGR2GRAY)
+	#print(img_raw.shape)
+	#print(type(img_raw))
+	#print(time.process_time() - start)
+	#haar_cascade_face = cv2.CascadeClassifier('C:/Users/rahul/OneDrive - Northeastern University/Respiratory Rate_Heart Rate/Matlab+Python Acquisition/Python Functions/haarcascades/haarcascade_frontalface_default.xml')
 	faces_rects = haar_cascade_face.detectMultiScale(img_raw, scaleFactor =sf, minNeighbors =mn);
+	#print(time.process_time() - start)
+	#print(time.process_time() - start)
+	#print(time.process_time() - start)
 
 # Let us print the no. of faces found
 	# can comment this out later...
+	
+	#print(time.process_time() - start)
+	
+
+    ### NUMBER OF FACES FOUND HERE 
 	print('Faces found: ', len(faces_rects))
+	##
+
 	#for (x,y,w,h) in faces_rects:
     #	rectangle=cv2.rectangle(img_raw, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
@@ -135,14 +166,16 @@ def get_ROI_FACE(img,sf,mn):
 		#ctr=ctr+1
 		#print(ctr)
 # for landmarks
+
 	landmark_list=[]
-	print("DO YOU WORKK>>>>>>")
+	#print("DO YOU WORKK>>>>>>")
 
 	for (x,y,w,h) in faces_rects:
 		#rectangle=cv2.rectangle(test_image_gray, (x, y), (x+w, y+h), (0, 255, 0), 2)
 		drect=dlib.rectangle(int(x),int(y),int(x+w),int(y+h))
 		landmarks=predictor(img_raw,drect)
 		points=shape_to_np(landmarks)
+		#print(time.process_time() - start)
 		for i in points:
 			landmark_list.append(i)
 
@@ -152,7 +185,8 @@ def get_ROI_FACE(img,sf,mn):
       #		for i in points: # Assuming only 1 phase in image
      #			landmark_list.append(i)
 
-
+	#print(time.process_time() - start)
+	#print(time.process_time() - start)
 	return faces_rect_list,landmark_list
 
 

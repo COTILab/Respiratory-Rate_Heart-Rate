@@ -87,11 +87,12 @@ cam_init_flag=1; % now it is initialized
 %image_struct_first=BlackFly_TakeImg(vid,Analysis_frame_count+init_tc_frame_count);
 
 if face_det_flag==1 % use facedetector
-    sf=1.06;
+    sf=1.04;
     mn=3;
-    image_8bit=uint8(image_struct_first.images(:,:,4)/256);
-    BBox=get_ROI_Face_mat(image_8bit,sf,mn);
-    
+    image_8bit=uint8(image_struct_first.images(:,:,100)/256);
+    [BBox,landmarks]=get_ROI_Face_mat(image_8bit,sf,mn);
+    % read dlib key
+    dlib_key=imread('dlib_68pt_mapping_key.png'); % where the 68 landmark points SHOULD BE
 end
 
 

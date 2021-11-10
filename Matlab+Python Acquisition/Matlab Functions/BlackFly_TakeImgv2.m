@@ -12,6 +12,9 @@ end
 persistent internal_buffer_length
 if cam_init_flag==0
     internal_buffer_length=300; % buffer will always be equal to initial number frames. We apply a generous scaling factor to ensure we still run OR SMALLER than this value
+    if num_frames==1
+    internal_buffer_length=1; disp("Internal Buffer set to 1 BF")% for live video
+    end
 end
 
 if cam_init_flag==0 % camera is NOT INITIALIZED
@@ -98,7 +101,10 @@ images_struct.time_stamp=linspace(0,mean_time*num_frames,num_frames);
 images_struct.raw_time_stamps=ts;
 
 %images_struct.time_stamp=linspace(exp_time/1000,(exp_time/1000)*num_frames,num_frames); %
-images_struct.images=images;
+%images_struct.images=images;
+images_struct.images=permute(images,[2 1 3]); disp("Transposing Images")
+images_struct.dim1=size(images_struct.images,1);
+images_struct.dim2=size(images_struct.images,2);
 images_struct.time_inc=diff(images_struct.time_stamp);
 images_struct.frame_rate_est=mean(images_struct.time_inc);
 images_struct.frame_std=std(diff(images_struct.time_stamp),0,2);
