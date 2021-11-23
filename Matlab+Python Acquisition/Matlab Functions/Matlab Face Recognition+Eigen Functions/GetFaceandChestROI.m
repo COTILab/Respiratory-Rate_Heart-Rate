@@ -7,7 +7,16 @@ function [DetectedFaceStruct,DetectedChestStruct,detail_struct]=GetFaceandChestR
 %less than KLT_conf makes it so we use Cascade Detector 
 %5. Refresh_ROI_Frames: Increment between frames we want to even check
 t_s=tic;
+%% for RGB images, so we can use this with colored images ,we must first convert to gray scale
+if length(size(image_struct.images))==4 % X Y RGBchannel, frame num
+    for i=1:size(image_struct.images,4)
+        temp=squeeze(image_struct.images(:,:,:,i));
+        bit_8_img(:,:,i)=rgb2gray(temp);
+    end
+else % for gray scale- assuming gray scale 12 bit from blackfly...
+
  bit_8_img=uint8(image_struct.images/256); % converting to 8 bit as it is faster to analyze
+end
  %% For First image use Cascade Detector 
  for i=1:size(bit_8_img,3) % THIS WILL ONLY FAIL IF EVERY SINGLE IMAGE CANT BE ANALYZED WITH CASCADE
      try

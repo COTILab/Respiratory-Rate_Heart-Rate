@@ -15,7 +15,7 @@ EMD_Analysis_Flag=1; %  1 if we are analyzing using EMD methods
 
 %% Bounding box and Filter ranges
 % BBox 1=Face; BBox 2=Chest
-Refresh_ROI_Frames=2; % Every X number of frames , when to update ROIs
+Refresh_ROI_Frames=1; % Every X number of frames , when to update ROIs
 ROI_Mask_Arr=[1 0]; % 1 if we want to mask within our ROI, 0 if we dont. Array correspdning to which ROI (Face,Chest)
 bp_mat{1}=[0.6 3.5];bp_mat{2}=[0.1 0.8]; % PER BOUNDING BOX
 imf_mat{1}=[2 NaN];imf_mat{2}=[1 NaN]; % NaNs mean use the last component of IMF
@@ -41,7 +41,7 @@ faceDetector_IR = vision.CascadeObjectDetector('ScaleFactor',sf(1)); % initializ
 exp_time=120;%66.6667;%(1/fs_est)*1000; % exposure time in ms
 %
 init_tc_frame_count=0;% how many frames will we throw away..  round(Init_tc/(1/fs_est));
-Analysis_frame_count=225;%round(Analysis_time/(1/fs_est));% converts time to frames as an estimate-- Rounds to whole number of frames
+Analysis_frame_count=100; disp("Frames ARE LESS");% USUALLY 225;%round(Analysis_time/(1/fs_est));% converts time to frames as an estimate-- Rounds to whole number of frames
 Refresh_frame_count=25;% Analysis_frame_count;%round(Refresh_time/(1/fs_est)); % coverts time to frames as an estimate-- Rounds to whole number of frames
 %time_d=0.1; % delay between images
 
