@@ -1,0 +1,9 @@
+function out_struct=buffer_main(buffer_struct,signalProcessing,finalSignal)
+%% Written on 30NOV21 -- handles buffering
+% Inputs:
+% 1.buffer_struct:
+
+
+
+
+end

@@ -15,10 +15,10 @@ if length(size(Im)) == 3
     
     
     %faceIm = Im(xyCoor(2):xyCoor(4),xyCoor(1):xyCoor(3),:);
-    faceIm = Im(ROI_dim1_start:ROI_dim1_end,ROI_dim2_start:ROI_dim2_end,:);
+    faceIm = Im(round(ROI_dim1_start):round(ROI_dim1_end),round(ROI_dim2_start):round(ROI_dim2_end),:);
 else
     %faceIm = Im(xyCoor(2):xyCoor(4),xyCoor(1):xyCoor(3));
-    faceIm = Im(ROI_dim1_start:ROI_dim1_end,ROI_dim2_start:ROI_dim2_end);
+    faceIm = Im(round(ROI_dim1_start):round(ROI_dim1_end),round(ROI_dim2_start):round(ROI_dim2_end));
 end
 
 % reset face sectors
