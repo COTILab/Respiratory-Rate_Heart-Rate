@@ -3,22 +3,23 @@
 
 3 Submodules:
 	1. NIR Video Subsystem:
+
 	Hardware Used: Occipital ST01 Structure sensor (for illumination) and Blackfly camera(BFS-U3-28S5)
 	
 	Inputs : 1. NIR image: Frontal view of illuminated face --> Heart Rate
 		 2. OPTIONAL: Frontal view of lluminated chest and/or abdominal region --> Respiratory Rate
 
 	Procedure: Video (~ 7.5 Hz) of subject motionless with minimal ambient lighting. EMD decomposition and filtering of
-2 separate regions of interest. Face analysis returns Heart rate and Chest analysis returns respiratory rate
+	2 separate regions of interest. Face analysis returns Heart rate and Chest analysis returns respiratory rate
 
 	Outputs: Heart Rate and Respiratory Rate (Optional)
 
 	Current Status/ Recommended Use case: Preliminary data obtained internally. Pipeline assessed on "acoustic phantoms" 
-driven at fixed frequency and on subjects compared to controlled breathing/ pulse oximeter standards. System recommended for use 
-in SLEEPING CASE
+	driven at fixed frequency and on subjects compared to controlled breathing/ pulse oximeter standards. System recommended for use 
+	in SLEEPING CASE
 
 	Known issues: Sensitive to distance to camera+ movement. Possible SNR concerns. Obstruction of face + layers of clothing
-covering chest region will interefere with HR and RR measurements significantly .
+	covering chest region will interefere with HR and RR measurements significantly .
 
 ----------------------------------------------------------------------------------------
 2. Color Video Subsystem:
