@@ -1,8 +1,27 @@
 # Respiratory-Rate_Heart-Rate
  Measuring RR and HR using camera based methods
 
+
+
+
+
+
+
+
+___________________________________________________________________________________________________________________________________________________________________________________________________
 Technology Dependencies:
 
+----------------------------------------------------------------------------------------------------------------------------
+Hardware:
+1. NIR Illumination: Occipital ST01 Structure Sensor-- CAN REPLACE WITH ANY CW NIR SOURCE
+2. NIR Camera: Blackfly (BFS-U3-28S5M0
+3. Color Camera: Currently using laptop internal camera for testing but any fixed color camera ( even external webcam should suffice). Replace function "Take_Internal_Webcam_Images.m" under 
+".\Respiratory Rate_Heart Rate\Color Video Subsystem\rPPG-master\rPPG-master\VZ_Color_Functions when desired.
+4. Thermal Camera: FLIR Lepton --https://groupgets.com/manufacturers/getlab/products/purethermal-2-flir-lepton-smart-i-o-module
+
+
+----------------------------------------------------------------------------------------------------------------------------
+Software:
 Code has been tested using Matlab R2021a on Windows 10 with the following packages: Most dependencies can be installed directly via the package installer on matlab. The rest are included in the github path already.
 
 "Image Acquisition Toolbox Support Package for OS Generic Video Interface"    "21.1.0"     true      "OSVIDEO"                             
@@ -26,7 +45,7 @@ to necessary path
 
 Additionally for structure sensor (Occipital ST01) source:
 
-Python 3.xx is needed along with the following dependencies:
+Python 3.xx is needed along with the following dependencies/libraries:
 
 os
 sys
@@ -39,8 +58,6 @@ http://com.occipital.openni.s3.amazonaws.com/Structure%20Sensor%20OpenNI2%20Quic
 WE MUST CHANGE THE FOLLOWING SO THIS CAN WORK...
 REMOVE SEMICOLON and change usbinterface to 0...
  REMOVE SEMICOLON and change usbinterface to 0...  under PS1080.ini under ./../././ Drivers
-
-
 
 argparse
 numpy
