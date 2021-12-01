@@ -11,12 +11,7 @@ function [image_struct]=Take_Internal_Webcam_Images(num_frames,varargin)
 % d. fs: 1/mean(t_int) --> Estimate of Frame Rate
 %% Additional Notes: Currently Exposure is fixed. Will eventually need Exposure to become automatically determined depending on patient and ambient lighting conditons...
 % so we dont have to redefine this every time...
-if length(varargin)==0
-   dead_frames=0; % number of frames we throw out from BEGINNING each time we reinit webcam
-else
-    dead_frames=varargin{1};
-    
-end
+if length(vara
 
 persistent vid
 persistent src
@@ -35,7 +30,7 @@ if isempty(vid) % this happens if it is the FIRST time we call the function
     
     src.Exposure=max_exp; % setting max exposure
     % Trigger frames
-    vid.FramesPerTrigger = num_frames+dead_frames;
+    vid.FramesPerTrigger = num_frames;
     % other settings
     src.BacklightCompensation='off';
     src.WhiteBalanceMode='manual';
@@ -51,10 +46,6 @@ try
     if get(vid,'FramesAvailable')<num_frames&&strcmpi(vid.logging,'off')
         start(vid)
         trigger(vid)
-        if dead_frames>0
-          [dead_images,dead_ts]=(getdata(vid,dead_frames));  
-            
-        end
     end
 catch
 end

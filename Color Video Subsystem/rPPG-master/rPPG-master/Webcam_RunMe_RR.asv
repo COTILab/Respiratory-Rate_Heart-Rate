@@ -95,7 +95,7 @@ buffer_struct.refresh_frames=refresh_frames;
 
 
 %% Flags 
-visualization_flag=0; % Visualize EVERY STEP for us 
+visualization_flag=1; % Visualize EVERY STEP for us 
 %% set parameters
 
 %% scaling factor,block size, point tracker, Face detector etc initialization
@@ -115,7 +115,7 @@ buffer_struct.pointTracker_Chest=pointTracker_Chest;
 buffer_struct.faceDetector=faceDetector;
 buffer_struct.Refresh_ROI_Frames=Refresh_ROI_Frames;
 buffer_struct.KLT_conf=KLT_conf;
-buffer_struct.dead_frames=dead_frames;
+buffer_struct.dead_frames=
 %% Settings structure for this method
 
 signalProcessing=init_signalProcessing();

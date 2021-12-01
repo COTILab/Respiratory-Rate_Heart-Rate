@@ -1,5 +1,5 @@
 function [skinDetection,faceIm,skinImB_3] = selectFaceTemplateColorCluster(skinDetection, Im) 
-disp("WORK") 
+%disp("WORK") 
 xyCoor = round([min(skinDetection.bboxPolygon(1:2:end)) min(skinDetection.bboxPolygon(2:2:end)) max(skinDetection.bboxPolygon(1:2:end)) max(skinDetection.bboxPolygon(2:2:end))]);
 xyCoor(xyCoor<1) = 1;
 

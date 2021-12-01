@@ -14,7 +14,7 @@ init_buffer=interp_struct_inp; % initial interpolated wrt time -channels
 %% Relevant Parameters
 refresh_frames=buffer_struct.refresh_frames; % number of new frames to take before we reanalyze
 buffer_cycles=buffer_struct.buffer_cycles;
-
+dead_frames=buffer_struct.dead_frames; % dead frames to cut out 
 %% Trackers
 pointTracker_Face=buffer_struct.pointTracker_Face;
 pointTracker_Chest=buffer_struct.pointTracker_Chest;
@@ -26,7 +26,7 @@ figure;buffer_visualization (signalProcessing,finalSignal,out_struct) % first po
  % plot first point 
 for i=1:buffer_cycles
     new_t_start=tic;
-    image_struct=Take_Internal_Webcam_Images(refresh_frames); % take images
+    image_struct=Take_Internal_Webcam_Images(refresh_frames,dead_frames); % take images
     [DetectedFaceStruct,~,detail_struct]=GetFaceandChestROI(image_struct,faceDetector,pointTracker_Face,pointTracker_Chest,KLT_conf,Refresh_ROI_Frames); % find faces
     DetectedFaceStruct=Fill_in_Face_Struct(DetectedFaceStruct); % fill in face structure
     [Masked_Images,pixelValPerFrame,t_mask]=K_Means_Masking(image_struct,DetectedFaceStruct); % Mask images
@@ -51,6 +51,12 @@ for i=1:buffer_cycles
     
     
 end
+%% Add statistics for analysis
+out_struct.med_HR_pow= median(out_struct.HR_pow);
+out_struct.std_HR_pow= std(out_struct.HR_pow,0,2);
+
+out_struct.med_HR_coh= median(out_struct.HR_coh);
+out_struct.std_HR_coh= std(out_struct.HR_coh,0,2);
 display("DONE ACQUIRING")
 
 

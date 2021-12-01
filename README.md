@@ -1,6 +1,73 @@
 # Respiratory-Rate_Heart-Rate
  Measuring RR and HR using camera based methods
 
+3 Submodules:
+	1. NIR Video Subsystem:
+	Hardware Used: Occipital ST01 Structure sensor (for illumination) and Blackfly camera(BFS-U3-28S5)
+	
+	Inputs : 1. NIR image: Frontal view of illuminated face --> Heart Rate
+		 2. OPTIONAL: Frontal view of lluminated chest and/or abdominal region --> Respiratory Rate
+
+	Procedure: Video (~ 7.5 Hz) of subject motionless with minimal ambient lighting. EMD decomposition and filtering of
+2 separate regions of interest. Face analysis returns Heart rate and Chest analysis returns respiratory rate
+
+	Outputs: Heart Rate and Respiratory Rate (Optional)
+
+	Current Status/ Recommended Use case: Preliminary data obtained internally. Pipeline assessed on "acoustic phantoms" 
+driven at fixed frequency and on subjects compared to controlled breathing/ pulse oximeter standards. System recommended for use 
+in SLEEPING CASE
+
+	Known issues: Sensitive to distance to camera+ movement. Possible SNR concerns. Obstruction of face + layers of clothing
+covering chest region will interefere with HR and RR measurements significantly .
+
+----------------------------------------------------------------------------------------
+2. Color Video Subsystem:
+	Hardware Used: currently using internal webcam but modular functions allow for any RGB camera to suffice. Easily substitutable.
+	
+
+	Inputs : 1. Color (RGB) image: Frontal view of unobstructed face --> Heart Rate
+		
+
+	Procedure: Video (~ 7.5 Hz) of subject motionless with ambient lighting. ICA decomposition and filtering of
+ region of interest derived using K-means clustering.
+
+	Outputs: Heart Rate
+
+	Current Status/ Recommended Use case: Preliminary data obtained internally. Literature indicates that RGB systems have 
+higher SNR compared to NIR based systems are less sensitive to minor motion artifacts. ICA based approach should theoretically correct for more prevalent forms of motions
+(exercise, daily acitivities) as long as ROI is tracked. This has not been assessed yet.  System recommended for use 
+in upright position with sufficient ambient lighting
+
+	Known issues: Obstruction of face will harm signal output. Matlab intermittently crashes while testing and it is not due to code itself ( just a internal bug for myself for now...)
+
+---------------------------------------------------------------------------------------------
+3. Thermal Video Subsystem:
+	Hardware used: FLIR Lepton 3.5+Breakoutboard-- Thermal camera Longwave infrared, 8 μm to 14 μm
+Spec sheet: https://www.flir.com/support/products/lepton/#Documents
+	
+
+	Inputs : 1. Frontal view of unobstructed face --> Respiratory Rate
+		
+
+	Procedure: Work in progress. Proposed -- ROI of Face --> Subregion of pixels around nose/mouth with greatest correlation with
+respiratory rate as indicated by literature. We will use either openCV or matlab to pick this specific region. As the expected frequency of RR is far lower,
+the video frame rate (~ 7 HZ) should be sufficient to obtain the signal. Additional Filtering will be used as needed on data stream.
+
+	Outputs: Respiratory Rate
+
+	Current Status/ Recommended Use case: Very much a work in progress. FLIR Lepton camera has been tested preliminarily integrated with image acquistion toolbox with no major issues thus far.
+
+	Known issues: Excessively Hot regions/cold regions (temperature) within image will ruin the ability to derive respiratory rate due to 
+quantization issues when reading temperatures--> RGB values. For more information, read the FLIR lepton documentation sections on histogram normalization. Subject must be present in scenario where no "hot/cold" spots 
+dominate the entirety of the image. This is the last module we are working on and thus the full range of issues is not currently known.
+
+ 
+
+
+
+	
+
+
 
 
 
@@ -14,10 +81,10 @@ Technology Dependencies:
 ----------------------------------------------------------------------------------------------------------------------------
 Hardware:
 1. NIR Illumination: Occipital ST01 Structure Sensor-- CAN REPLACE WITH ANY CW NIR SOURCE
-2. NIR Camera: Blackfly (BFS-U3-28S5M0
+2. NIR Camera: Blackfly (BFS-U3-28S5)
 3. Color Camera: Currently using laptop internal camera for testing but any fixed color camera ( even external webcam should suffice). Replace function "Take_Internal_Webcam_Images.m" under 
 ".\Respiratory Rate_Heart Rate\Color Video Subsystem\rPPG-master\rPPG-master\VZ_Color_Functions when desired.
-4. Thermal Camera: FLIR Lepton --https://groupgets.com/manufacturers/getlab/products/purethermal-2-flir-lepton-smart-i-o-module
+4. Thermal Camera: FLIR Lepton 3.5 --https://groupgets.com/manufacturers/getlab/products/purethermal-2-flir-lepton-smart-i-o-module
 
 
 ----------------------------------------------------------------------------------------------------------------------------
