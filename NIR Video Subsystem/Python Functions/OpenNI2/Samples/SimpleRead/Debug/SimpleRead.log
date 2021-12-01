@@ -1,0 +1,2 @@
+﻿  main.cpp
+c:\program files\openni2\samples\simpleread\main.cpp(22): fatal error C1083: Cannot open include file: 'OpenNI.h': No such file or directory

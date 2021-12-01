@@ -9,8 +9,8 @@ for i=1:length(DetectedFaceStruct) % each frame
     out_im(~skinImB_3)=0; % Masked Image
     Masked_Images{i}(:,:,:)=uint8(out_im);
     for j=1:3 % each channel--RGB
-        pixelValPerFrame(i,j)=mean(mean(Masked_Images{i} (:,:,j)));
-        %pixelValPerFrame(i,j)=mean(mean(nonzeros(Masked_Images{i} (:,:,j)))); % nonzero mean
+        %pixelValPerFrame(i,j)=mean(mean(Masked_Images{i} (:,:,j)));
+         pixelValPerFrame(i,j)=mean(mean(nonzeros(Masked_Images{i} (:,:,j)))); % nonzero mean
     end
     t_mask(i)=toc(tic_1);
 end

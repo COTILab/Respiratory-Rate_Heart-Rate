@@ -1,4 +1,5 @@
 *.dat
-Matlab+Python Acquisition/Saved Data Debugging/Blackfly_Color_img.mat
-Matlab+Python Acquisition/Python Functions/test.tif
-Matlab+Python Acquisition/Saved Data Debugging/StructureSensor_IR.mat
+*.zip
+NIR Video Subsystem/Saved Data Debugging/Blackfly_Color_img.mat
+NIR Video Subsystem/Python Functions/test.tif
+NIR Video Subsystem/Saved Data Debugging/StructureSensor_IR.mat

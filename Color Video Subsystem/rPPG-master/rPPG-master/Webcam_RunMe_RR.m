@@ -5,15 +5,15 @@ clc
 imaqreset
 %% Uses webcam to acquire images with a circular buffer. Very similar type of algorithm( PCA) using ambient 
 addpath(genpath('./Fast ICA'));
-addpath(genpath('../../../Matlab+Python Acquisition')); % Access to all the functions we wrote for the IR based system.
+addpath(genpath('../../../NIR Video Subsystem')); %addpath(genpath('../../../Matlab+Python Acquisition')); % Access to all the functions we wrote for the IR based system.
 addpath(genpath('./VZ_Color_Functions'))
 %% Git hub repositories used
 % 1. https://github.com/marnixnaber/rPPG
 % Dependencies: https://github.com/aludnam/MATLAB/tree/master/FastICA_25
 %% READ ME
-buffer_length=200; % init buffer length in frames
+buffer_length=150; % init buffer length in frames
 buffer_cycles=10; % 0 if we want an inf loop 
-refresh_frames=10; % how many new frames do we take before we reanalyze
+refresh_frames=50; % how many new frames do we take before we reanalyze
 
 %% adding to buffer_struct for later
 buffer_struct.buffer_length=buffer_length;
@@ -112,12 +112,14 @@ faceDetector = vision.CascadeObjectDetector('ScaleFactor',sf(1)); % initializing
 buffer_struct.pointTracker_Face=pointTracker_Face;
 buffer_struct.pointTracker_Chest=pointTracker_Chest;
 buffer_struct.faceDetector=faceDetector;
-
+buffer_struct.Refresh_ROI_Frames=Refresh_ROI_Frames;
+buffer_struct.KLT_conf=KLT_conf;
 %% Settings structure for this method
 
 signalProcessing=init_signalProcessing();
 %% Find Face using OUR FUNCTION -RR
 t_start=tic;
+disp("Acquisition started")
 image_struct=Take_Internal_Webcam_Images(buffer_length); % take images
 t_take_img=toc(t_start);
 [DetectedFaceStruct,~,detail_struct]=GetFaceandChestROI(image_struct,faceDetector,pointTracker_Face,pointTracker_Chest,KLT_conf,Refresh_ROI_Frames);
@@ -294,6 +296,7 @@ finalSignal.t_total=toc(t_start);
 if visualization_flag==1 % visualize face
 Visualize_init_Fourier_Response(signalProcessing,finalSignal)
 end
+out_struct=buffer_main(buffer_struct,signalProcessing,finalSignal,interp_struct);
 %% plot frequency spectrum
 %%  Old Code
 %%%%% %  Debugging Rahul-- Each component individually
