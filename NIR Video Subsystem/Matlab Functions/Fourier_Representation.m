@@ -11,8 +11,8 @@ function Fourier_Data=Fourier_Representation(fs,time_stamps,time_signal)
 
 L=max(time_stamps)./(1/fs);
 n=2^nextpow2(L);
-if n<500
-   n=500; % n/2 freqs expected
+if n<600
+   n=1000; % n/2 freqs expected
 end
 
 Y=fft(time_signal,n); % frequency response

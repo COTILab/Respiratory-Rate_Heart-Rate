@@ -11,6 +11,7 @@ function [recon_signal,imf,info,residual,imf_idx_1,imf_idx_2]= EMD_Analysis_MULT
 for i=1:length(all_orig_signal) % for each bbox
     orig_signal=all_orig_signal{i};
     
+try    
 if length(varargin{1}{1})==2
     imf_idx_1{i}=varargin{1}{i}(1);
     imf_idx_2{i}=varargin{1}{i}(2);
@@ -24,11 +25,17 @@ end
 if length(varargin{1}{1})<3
     sift_tol=0.2; % default
 end
+catch
+ sift_tol=0.2; % assigning if there is error
+end
 
 [imf{i},residual{i},info{i}] = emd(orig_signal,'SiftRelativeTolerance',sift_tol); %disp("SPLINED EMD")
 
+try
 if isnan(imf_idx_2{i})==1
      imf_idx_2{i}=size(imf{i},2); % MASKING NANs to be size of array
+end
+catch
 end
 
 if length(varargin)==0 % no external arguments--default

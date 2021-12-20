@@ -1,4 +1,4 @@
-function DetectedFaceStruct=FaceDetectionRefresh(images,FaceDetector,PointTracker)
+function DetectedFaceStruct=FaceDetectionRefresh(images,FaceDetector,PointTracker,varargin)
 tStart=tic;
 
 %% CASCADE DETECTOR
@@ -7,10 +7,11 @@ tStart=tic;
 %Uses Face Detector to find LARGEST FACE(works for 1 face in frame)
 % Slower than point tracker but helps to REFRESH Landmarks COMPLETELY as
 % POINT TRACKER GRADUALLY FAILS
+
 BBox=step(FaceDetector,images); % Find Faces
 Area=0;
 Face_BBox=[];
-minArea=6000; % cut out aberrationss
+minArea=0.002*size(images,1)*size(images,2);%6000; % cut out aberrationss based on image resolution--arbituary cut off
 for i=1:size(BBox,1) % every face found
     temp=BBox(i,3)*BBox(i,4); %Area of BBox
     if temp>Area&&temp>minArea

@@ -1,0 +1,16 @@
+Microsoft Visual C/C++ .NET
+
+   1. Open the Simulink model sfundebug.mdl.
+   2. To debug a MEX-file from within MATLAB, you must first compile the MEX-file with the -g option to the MEX function. The -g option builds the MEX-file with debugging symbols included.
+
+      mex -g timestwo.c
+
+      This will create timestwo.mexw32. You should now simulate the model to make sure it executes properly.
+   3. Start the Microsoft Development Environment. Do not exit your MATLAB session.
+   4. From the Microsoft menu, select Tools -> Debug Process 
+   5. In the Process GUI that opens, select the MATLAB.exe process and click Attach
+   6. In the GUI that opens, select Native as the Type and click Ok. You should now be attached to the MATLAB process. You can now close the Process GUI if you wish.
+   7. Open the source files by selecting File -> Open->File  Set a breakpoint on the desired line of code by right-clicking on the line of code, and selecting Insert Breakpoint. If you have not run the model yet and the breakpoint shows up with a  ?  in it, do not worry. The .mexw32 file will load when you run the model.
+   8. Start the simulation, and you should be running the S-function in the Microsoft Development Environment. For more information on the how to use the debugging features in the Microsoft environment, refer to the Microsoft Development Environment documentation.
+
+Microsoft Visual C/C++ 6.0

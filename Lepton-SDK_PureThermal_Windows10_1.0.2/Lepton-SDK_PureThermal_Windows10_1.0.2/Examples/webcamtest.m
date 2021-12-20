@@ -9,7 +9,7 @@ info.SupportedFormats
 % Typically you want y16
 num_frames=1;
 %% Gray scale
-vid = videoinput('winvideo', 2, 'Y16 _160x120');%videoinput('winvideo', 1, 'Y16 _160x120');
+vid = videoinput('winvideo', 1, 'UYVY_160x120');%videoinput('winvideo', 1, 'Y16 _160x120');
 src = getselectedsource(vid);
 triggerconfig(vid, 'manual');
 vid.FramesPerTrigger = num_frames;
@@ -18,7 +18,7 @@ trigger(vid)
 [images_gs,ts_gs]=(getdata(vid,num_frames));
 stop(vid);
 %% RGB
-vid_2 =videoinput('winvideo', 2, 'RGB24_160x120');%videoinput('winvideo', 1, 'Y16 _160x120');
+vid_2 =videoinput('winvideo', 1, 'RGB24_160x120');%videoinput('winvideo', 1, 'Y16 _160x120');
 src_2 = getselectedsource(vid_2);
 triggerconfig(vid_2, 'manual');
 vid_2.FramesPerTrigger = num_frames;
@@ -58,7 +58,7 @@ subplot(1,3,3),imagesc((flip(rgb2gray(images_rgb),1))),colorbar
 %%
 % Here's a 3d whatever it's called
 %preview(vid)
-frame = getsnapshot(inp);
+frame = getsnapshot(vid);
 [X,Y] = meshgrid(1:size(frame, 2), 1:size(frame, 1));
 figure
 msh = mesh(X, Y, frame);
